@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Omnea — Procurement Readiness Scorecard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+--navy:#0f1923;--navy-l:#1a2d3d;
+--teal:#00c389;--teal-h:#00a874;--teal-dim:rgba(0,195,137,.1);
+--dark:#1a2535;--off:#f7fafc;--wh:#ffffff;
+--g3:#d1d5db;--g4:#9ca3af;--g5:#6b7280;--g6:#4b5563;
+--red:#ef4444;--green:#22c55e;--amber:#f59e0b;
+--f:'Outfit',system-ui,sans-serif;
+}
+html{-webkit-font-smoothing:antialiased}
+body{font-family:var(--f);background:var(--off);color:var(--dark);min-height:100vh}
+.hdr{background:var(--navy);color:var(--wh);padding:24px 16px;text-align:center}
+.logo{font-size:.72rem;font-weight:700;color:var(--teal);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
+.logo span{opacity:.5;font-weight:500}
+h1{font-size:clamp(1.2rem,3vw,1.65rem);font-weight:800;letter-spacing:-.02em;margin-bottom:8px}
+.hdr p{font-size:.82rem;color:var(--g4);max-width:480px;margin:0 auto;line-height:1.6}
+.progress-wrap{background:var(--wh);border-bottom:1px solid #e5e7eb;padding:12px 20px;position:sticky;top:0;z-index:10}
+.wrap{max-width:640px;margin:0 auto}
+.progress-bar{background:#e5e7eb;border-radius:100px;height:6px;margin-bottom:6px}
+.progress-fill{background:var(--teal);height:6px;border-radius:100px;transition:width .3s ease;width:0%}
+.progress-text{display:flex;justify-content:space-between;font-size:.72rem;color:var(--g5);font-weight:500}
+.q-section{padding:24px 16px}
+.q-card{display:none;animation:fadeUp .3s ease}
+.q-card.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.q-num{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin-bottom:10px}
+.q-text{font-size:1.05rem;font-weight:700;color:var(--dark);line-height:1.3;margin-bottom:20px}
+.q-help{font-size:.78rem;color:var(--g5);margin-bottom:16px;line-height:1.5;font-style:italic}
+.opts{display:flex;flex-direction:column;gap:10px}
+.opt{padding:14px 18px;border:1.5px solid #e5e7eb;border-radius:8px;cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:12px;font-size:.88rem;font-weight:500}
+.opt:hover{border-color:var(--navy);background:var(--off)}
+.opt.selected{border-color:var(--teal);background:var(--teal-dim)}
+.opt-dot{width:18px;height:18px;min-width:18px;border-radius:50%;border:2px solid #e5e7eb;transition:all .15s;display:flex;align-items:center;justify-content:center}
+.opt.selected .opt-dot{border-color:var(--teal);background:var(--teal)}
+.opt.selected .opt-dot::after{content:'';width:6px;height:6px;border-radius:50%;background:var(--wh)}
+.opt-label{flex:1}
+.q-nav{display:flex;justify-content:space-between;margin-top:20px}
+.btn{padding:12px 24px;border-radius:8px;font:600 .85rem/1 var(--f);border:0;cursor:pointer;transition:all .15s}
+.btn:active{transform:scale(.97)}
+.btn-next{background:var(--teal);color:var(--navy)}.btn-next:hover{background:var(--teal-h)}
+.btn-next:disabled{background:var(--g3);cursor:not-allowed}
+.btn-back{background:transparent;color:var(--g5);border:1.5px solid #e5e7eb}.btn-back:hover{border-color:var(--dark)}
+.results{display:none;padding:32px 0}
+.results.show{display:block;animation:fadeUp .4s ease}
+.r-card{background:var(--wh);border:1px solid #e5e7eb;border-radius:12px;padding:32px;text-align:center;margin-bottom:20px}
+.r-score{font-size:3.2rem;font-weight:800;letter-spacing:-.04em;line-height:1}
+.r-score.high{color:var(--green)}.r-score.mid{color:var(--amber)}.r-score.low{color:var(--red)}
+.r-label{font-size:.88rem;font-weight:600;color:var(--g5);margin-top:6px}
+.r-verdict{font-size:1.1rem;font-weight:700;color:var(--dark);margin-top:16px}
+.r-desc{font-size:.88rem;color:var(--g5);margin-top:6px;line-height:1.6;max-width:440px;margin-left:auto;margin-right:auto}
+.breakdown{background:var(--wh);border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;margin-bottom:20px}
+.bd-title{padding:16px 20px;font-size:.82rem;font-weight:700;color:var(--dark);border-bottom:1px solid #e5e7eb;background:var(--off)}
+.bd-row{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-bottom:1px solid #f3f4f6}
+.bd-row:last-child{border-bottom:0}
+.bd-cat{font-size:.82rem;font-weight:600;color:var(--dark)}
+.bd-score{font-size:.82rem;font-weight:700;padding:3px 10px;border-radius:4px}
+.bd-high{background:rgba(34,197,94,.08);color:var(--green)}
+.bd-mid{background:rgba(245,158,11,.08);color:var(--amber)}
+.bd-low{background:rgba(239,68,68,.08);color:var(--red)}
+.recs{background:var(--wh);border:1px solid #e5e7eb;border-radius:12px;padding:24px;margin-bottom:20px}
+.recs h3{font-size:.92rem;font-weight:700;color:var(--dark);margin-bottom:14px}
+.rec-item{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid #f3f4f6;font-size:.82rem;color:var(--g6);line-height:1.5}
+.rec-item:last-child{border-bottom:0}
+.rec-icon{width:20px;height:20px;min-width:20px;border-radius:5px;background:var(--teal-dim);display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:800;color:var(--navy)}
+.gate{background:var(--navy);border-radius:12px;padding:32px;text-align:center;margin-bottom:20px}
+.gate h3{font-size:1rem;font-weight:700;color:var(--wh);margin-bottom:6px}
+.gate p{font-size:.82rem;color:var(--g4);margin-bottom:16px}
+.gate-form{display:flex;gap:8px;max-width:400px;margin:0 auto}
+.gate-input{flex:1;padding:12px 14px;border-radius:8px;border:1.5px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);color:var(--wh);font:500 .85rem/1 var(--f);outline:none}
+.gate-input:focus{border-color:var(--teal)}
+.gate-input::placeholder{color:var(--g4)}
+.gate-btn{padding:12px 20px;border-radius:8px;background:var(--teal);color:var(--navy);font:700 .85rem/1 var(--f);border:0;cursor:pointer}
+.gate-btn:hover{background:var(--teal-h)}
+.gate-note{font-size:.7rem;color:var(--g4);margin-top:10px}
+.cta-box{background:var(--off);border:1px solid #e5e7eb;border-radius:12px;padding:28px;text-align:center;margin-bottom:20px}
+.cta-box h3{font-size:1rem;font-weight:700;color:var(--dark);margin-bottom:6px}
+.cta-box p{font-size:.82rem;color:var(--g5);margin-bottom:16px;line-height:1.6}
+.cta-box .btn{padding:14px 28px}
+footer{padding:20px 0;text-align:center}
+footer p{font-size:.68rem;color:var(--g4)}
+</style>
+</head>
+<body>
+
+<div class="hdr"><div class="wrap">
+<div class="logo">Omnea <span>Procurement Readiness Scorecard</span></div>
+<h1>Procurement Pipeline Readiness Scorecard</h1>
+<p>Score your company's procurement buying readiness in 2 minutes. Find out where you are in the evaluation cycle and what to look for next.</p>
+</div></div>
+
+<div class="progress-wrap"><div class="wrap">
+<div class="progress-bar"><div class="progress-fill" id="progFill" style="width:0%"></div></div>
+<div class="progress-text"><span id="progLabel">Question 1 of 8</span><span id="progPct">0%</span></div>
+</div></div>
+
+<section class="q-section"><div class="wrap">
+
+<div class="q-card active" data-q="1">
+<div class="q-num">Question 1 of 8 — Current Tools</div>
+<div class="q-text">How does your company currently manage procurement intake and approval workflows?</div>
+<div class="q-help">Intake is where procurement requests enter the system. Approval is where they get authorised. Most companies handle this in email, spreadsheets, or a legacy ERP that was never designed for it.</div>
+<div class="opts">
+<div class="opt" data-val="1"><span class="opt-dot"></span><span class="opt-label">Email and spreadsheets only. No formal intake system.</span></div>
+<div class="opt" data-val="2"><span class="opt-dot"></span><span class="opt-label">A legacy ERP or P2P tool (Coupa, SAP Ariba, Oracle). Works but complex and slow.</span></div>
+<div class="opt" data-val="3"><span class="opt-dot"></span><span class="opt-label">A mix of tools. Some teams use structured intake, others don't.</span></div>
+<div class="opt" data-val="4"><span class="opt-dot"></span><span class="opt-label">A modern orchestration platform with AI-driven intake and approval automation.</span></div>
+</div>
+<div class="q-nav"><button class="btn btn-back" disabled>Back</button><button class="btn btn-next" disabled>Next</button></div>
+</div>
+
+<div class="q-card" data-q="2">
+<div class="q-num">Question 2 of 8 — Spend Visibility</div>
+<div class="q-text">How much visibility does your finance team have over upcoming spend before it's committed?</div>
+<div class="q-help">Maverick spend — purchases made outside the procurement process — accounts for 20–40% of B2B spend at companies without intake orchestration. The CFO finds out after the invoice arrives.</div>
+<div class="opts">
+<div class="opt" data-val="1"><span class="opt-dot"></span><span class="opt-label">Low. Finance sees spend when invoices arrive, not when it's requested.</span></div>
+<div class="opt" data-val="2"><span class="opt-dot"></span><span class="opt-label">Partial. Some categories are tracked but significant maverick spend exists.</span></div>
+<div class="opt" data-val="3"><span class="opt-dot"></span><span class="opt-label">Moderate. Most spend goes through a process but exceptions are common.</span></div>
+<div class="opt" data-val="4"><span class="opt-dot"></span><span class="opt-label">Strong. Finance has real-time visibility across all spend categories before commitment.</span></div>
+</div>
+<div class="q-nav"><button class="btn btn-back">Back</button><button class="btn btn-next" disabled>Next</button></div>
+</div>
+
+<div class="q-card" data-q="3">
+<div class="q-num">Question 3 of 8 — Approval Workflow</div>
+<div class="q-text">How long does a typical procurement approval take from request to sign-off?</div>
+<div class="q-help">At most companies without intake automation, approvals are tracked in email threads. Requests get lost. Stakeholders chase over Slack. Finance can't see what's pending. Average time-to-approval is measured in weeks, not days.</div>
+<div class="opts">
+<div class="opt" data-val="1"><span class="opt-dot"></span><span class="opt-label">2+ weeks. Approvals are tracked informally and often get stuck.</span></div>
+<div class="opt" data-val="2"><span class="opt-dot"></span><span class="opt-label">5–10 days. A process exists but it's slow and manual.</span></div>
+<div class="opt" data-val="3"><span class="opt-dot"></span><span class="opt-label">2–5 days. Reasonably structured but still room to improve.</span></div>
+<div class="opt" data-val="4"><span class="opt-dot"></span><span class="opt-label">Under 2 days. Automated workflows route requests to the right approver instantly.</span></div>
+</div>
+<div class="q-nav"><button class="btn btn-back">Back</button><button class="btn btn-next" disabled>Next</button></div>
+</div>
+
+<div class="q-card" data-q="4">
+<div class="q-num">Question 4 of 8 — Supplier Management</div>
+<div class="q-text">How does your company manage its supplier relationships and contract renewals?</div>
+<div class="q-help">Unmanaged renewals are one of the biggest sources of wasted spend. Software auto-renews. Contracts roll over at higher rates. Nobody notices until the invoice hits the P&L. Supplier relationship management is where procurement teams find the most immediate savings.</div>
+<div class="opts">
+<div class="opt" data-val="1"><span class="opt-dot"></span><span class="opt-label">No system. Renewals are managed by whoever remembers. Contracts live in email.</span></div>
+<div class="opt" data-val="2"><span class="opt-dot"></span><span class="opt-label">A spreadsheet or shared doc. Better than nothing but hard to scale.</span></div>
+<div class="opt" data-val="3"><span class="opt-dot"></span><span class="opt-label">A contract management tool or CLM. Renewals are flagged but manually managed.</span></div>
+<div class="opt" data-val="4"><span class="opt-dot"></span><span class="opt-label">Automated renewal tracking with supplier health scoring and negotiation workflows.</span></div>
+</div>
+<div class="q-nav"><button class="btn btn-back">Back</button><button class="btn btn-next" disabled>Next</button></div>
+</div>
+
+<div class="q-card" data-q="5">
+<div class="q-num">Question 5 of 8 — ERP Integration</div>
+<div class="q-text">How well does your procurement process integrate with your existing systems?</div>
+<div class="q-help">The "rip and replace" problem: most enterprise procurement tools require replacing your ERP or P2P system. An orchestration layer sits on top of what you have, connecting the systems you already paid for. The difference is months of implementation vs weeks.</div>
+<div class="opts">
+<div class="opt" data-val="1"><span class="opt-dot"></span><span class="opt-label">No integration. Procurement and finance use separate tools with no data flow.</span></div>
+<div class="opt" data-val="2"><span class="opt-dot"></span><span class="opt-label">Partial. Some systems connect but data reconciliation is manual.</span></div>
+<div class="opt" data-val="3"><span class="opt-dot"></span><span class="opt-label">Moderate. Key systems are connected but procurement remains siloed from finance.</span></div>
+<div class="opt" data-val="4"><span class="opt-dot"></span><span class="opt-label">Strong. Procurement sits as an orchestration layer across our ERP, P2P, and contract tools.</span></div>
+</div>
+<div class="q-nav"><button class="btn btn-back">Back</button><button class="btn btn-next" disabled>Next</button></div>
+</div>
+
+<div class="q-card" data-q="6">
+<div class="q-num">Question 6 of 8 — AI in Procurement</div>
+<div class="q-text">How is AI currently used in your procurement operations?</div>
+<div class="q-help">AI in procurement ranges from bolted-on features (OCR, basic automation) to genuinely AI-native platforms built from the ground up. The distinction matters: an AI-native platform routes requests intelligently, identifies patterns in spend, and flags risks. Bolted-on AI is a search bar and a few macros.</div>
+<div class="opts">
+<div class="opt" data-val="1"><span class="opt-dot"></span><span class="opt-label">No AI in procurement. Everything is manual.</span></div>
+<div class="opt" data-val="2"><span class="opt-dot"></span><span class="opt-label">Basic automation (rules-based). Not AI — just if/then logic.</span></div>
+<div class="opt" data-val="3"><span class="opt-dot"></span><span class="opt-label">AI features bolted onto a legacy platform. Works partially.</span></div>
+<div class="opt" data-val="4"><span class="opt-dot"></span><span class="opt-label">AI-native platform. Intelligent routing, spend pattern analysis, risk flagging.</span></div>
+</div>
+<div class="q-nav"><button class="btn btn-back">Back</button><button class="btn btn-next" disabled>Next</button></div>
+</div>
+
+<div class="q-card" data-q="7">
+<div class="q-num">Question 7 of 8 — Business Expansion</div>
+<div class="q-text">Is your company expanding into new markets or geographies in the next 12 months?</div>
+<div class="q-help">US expansion is the most common trigger for a procurement infrastructure overhaul. New markets mean new vendors, new compliance requirements, and procurement teams that don't have the same institutional knowledge as the home market. The pressure to standardise procurement is highest when the business is scaling fast.</div>
+<div class="opts">
+<div class="opt" data-val="1"><span class="opt-dot"></span><span class="opt-label">No active expansion plans.</span></div>
+<div class="opt" data-val="2"><span class="opt-dot"></span><span class="opt-label">Considering expansion but no confirmed plans.</span></div>
+<div class="opt" data-val="3"><span class="opt-dot"></span><span class="opt-label">Active expansion — 1 to 2 new markets in the next 12 months.</span></div>
+<div class="opt" data-val="4"><span class="opt-dot"></span><span class="opt-label">Rapid expansion — multiple markets, fast headcount growth, procurement under pressure.</span></div>
+</div>
+<div class="q-nav"><button class="btn btn-back">Back</button><button class="btn btn-next" disabled>Next</button></div>
+</div>
+
+<div class="q-card" data-q="8">
+<div class="q-num">Question 8 of 8 — Finance Team Pain</div>
+<div class="q-text">How much time does your finance team spend on procurement-related admin per week?</div>
+<div class="q-help">Procurement admin for finance includes: chasing approvals, reconciling invoices, managing renewal dates, responding to vendor queries, and producing spend reports. Companies with effective intake orchestration reduce this by 60 to 80 percent. That's time the finance team gets back for actual analysis.</div>
+<div class="opts">
+<div class="opt" data-val="1"><span class="opt-dot"></span><span class="opt-label">Less than 5 hours per week. Procurement runs smoothly.</span></div>
+<div class="opt" data-val="2"><span class="opt-dot"></span><span class="opt-label">5 to 10 hours per week. Manageable but noticeable.</span></div>
+<div class="opt" data-val="3"><span class="opt-dot"></span><span class="opt-label">10 to 20 hours per week. A real time sink.</span></div>
+<div class="opt" data-val="4"><span class="opt-dot"></span><span class="opt-label">20+ hours per week. Procurement admin is crowding out finance strategy work.</span></div>
+</div>
+<div class="q-nav"><button class="btn btn-back">Back</button><button class="btn btn-next">See Results</button></div>
+</div>
+
+</div></section>
+
+<section class="results" id="results"><div class="wrap">
+
+<div class="r-card" id="rCard">
+<div class="r-score" id="rScore">--</div>
+<div class="r-label">out of 32</div>
+<div class="r-verdict" id="rVerdict"></div>
+<div class="r-desc" id="rDesc"></div>
+</div>
+
+<div class="breakdown" id="breakdown">
+<div class="bd-title">Score Breakdown by Category</div>
+</div>
+
+<div class="recs" id="recs">
+<h3>Your top recommendations</h3>
+</div>
+
+<div class="gate">
+<h3>Get the full Procurement Efficiency Report</h3>
+<p>We will send you a detailed report with company-specific recommendations, ROI projections, and a 12-week implementation roadmap. Free.</p>
+<div class="gate-form">
+<input type="email" class="gate-input" placeholder="Your work email" id="gateEmail">
+<button class="gate-btn" id="gateBtn">Send Report</button>
+</div>
+<div class="gate-note">No spam. No sales calls unless you ask.</div>
+</div>
+
+<div class="cta-box">
+<h3>Want a deeper assessment?</h3>
+<p>Book a 15-minute call. We will scope a full procurement readiness audit for your company. Free. No commitment. The audit is yours whether you choose Omnea or not.</p>
+<a href="https://cal.com/jean-m-8f4kbr/15min" class="btn btn-next" style="font-size:.88rem">Book Free Assessment</a>
+</div>
+
+</div></section>
+
+<footer><div class="wrap">
+<p>Procurement Readiness Scorecard for Omnea | Lead magnet concept by MDB Growth Capital | Strategy by Jean Mundabi Fala</p>
+</div></footer>
+
+<script>
+const cards=document.querySelectorAll('.q-card');
+const fill=document.getElementById('progFill');
+const progLabel=document.getElementById('progLabel');
+const progPct=document.getElementById('progPct');
+let current=0;
+const answers=new Array(8).fill(0);
+const categories=['Current Tools','Spend Visibility','Approval Speed','Supplier Management','ERP Integration','AI in Procurement','Business Expansion','Finance Team Admin'];
+
+document.querySelectorAll('.opt').forEach(opt=>{
+  opt.addEventListener('click',()=>{
+    const card=opt.closest('.q-card');
+    card.querySelectorAll('.opt').forEach(o=>o.classList.remove('selected'));
+    opt.classList.add('selected');
+    card.querySelector('.btn-next').disabled=false;
+    const qi=parseInt(card.dataset.q)-1;
+    answers[qi]=parseInt(opt.dataset.val);
+  });
+});
+
+document.querySelectorAll('.btn-next').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    if(btn.disabled)return;
+    if(current<7){
+      cards[current].classList.remove('active');
+      current++;
+      cards[current].classList.add('active');
+      updateProgress();
+    }else{showResults();}
+  });
+});
+
+document.querySelectorAll('.btn-back').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    if(current>0){
+      cards[current].classList.remove('active');
+      current--;
+      cards[current].classList.add('active');
+      updateProgress();
+    }
+  });
+});
+
+function updateProgress(){
+  const pct=Math.round(((current)/8)*100);
+  fill.style.width=pct+'%';
+  progLabel.textContent='Question '+(current+1)+' of 8';
+  progPct.textContent=pct+'%';
+}
+
+function showResults(){
+  document.querySelector('.q-section').style.display='none';
+  document.querySelector('.progress-wrap').style.display='none';
+  const r=document.getElementById('results');
+  r.classList.add('show');
+  const total=answers.reduce((a,b)=>a+b,0);
+  const scoreEl=document.getElementById('rScore');
+  const verdictEl=document.getElementById('rVerdict');
+  const descEl=document.getElementById('rDesc');
+  scoreEl.textContent=total;
+  let verdict,desc,cls;
+  if(total>=28){
+    verdict='Procurement Leader';
+    desc='Your procurement function is operating at the top tier. Strong intake orchestration, real-time spend visibility, automated approvals, and AI-native tooling. Your finance team spends its time on strategy, not chasing invoices. Focus on expanding Omnea across new markets and deepening supplier intelligence.';
+    cls='high';
+  }else if(total>=20){
+    verdict='On Track — Close the Gaps';
+    desc='Your procurement function has a solid foundation but 2 to 3 areas are still creating friction. Most likely: intake requests still go through email in some teams, AI is not yet integrated, or supplier management is tracked manually. Fix those gaps and approval time drops from days to hours.';
+    cls='mid';
+  }else if(total>=12){
+    verdict='Falling Behind — Peers Are Moving';
+    desc='Your procurement function has basic structure but significant gaps remain. Finance is spending 10+ hours per week on admin that should be automated. Maverick spend is likely above 20%. Companies at your stage that have implemented intake orchestration are moving faster on procurement decisions and spending less on vendor management.';
+    cls='mid';
+  }else{
+    verdict='At Risk — Procurement Is Slowing Growth';
+    desc='Your company is running procurement on email and spreadsheets at a stage where that creates real business risk. As headcount grows, this problem compounds. Every new team member creates more untracked spend, more approval backlogs, and more work for a finance team that should be focused on growth decisions. Immediate action recommended.';
+    cls='low';
+  }
+  scoreEl.className='r-score '+cls;
+  verdictEl.textContent=verdict;
+  descEl.textContent=desc;
+
+  const bd=document.getElementById('breakdown');
+  const existingRows=bd.querySelectorAll('.bd-row');
+  existingRows.forEach(r=>r.remove());
+  answers.forEach((a,i)=>{
+    const row=document.createElement('div');
+    row.className='bd-row';
+    let scoreCls=a>=3?'bd-high':a===2?'bd-mid':'bd-low';
+    let scoreLabel=a>=3?'Strong':a===2?'OK':'Weak';
+    row.innerHTML='<span class="bd-cat">'+categories[i]+'</span><span class="bd-score '+scoreCls+'">'+scoreLabel+' ('+a+'/4)</span>';
+    bd.appendChild(row);
+  });
+
+  const recsEl=document.getElementById('recs');
+  const weakAreas=answers.map((a,i)=>({cat:categories[i],score:a,idx:i})).filter(x=>x.score<=2).sort((a,b)=>a.score-b.score);
+  const recTexts={
+    0:'Procurement intake built on email and spreadsheets is the most common source of maverick spend. Without a structured intake layer, requests bypass approval. Finance sees the invoice instead of the request. Omnea\'s intake orchestration captures every procurement request in a structured workflow — regardless of whether teams use Slack, email, or a direct form.',
+    1:'No spend visibility before commitment is a board-level risk for companies above 100 employees. When finance only sees spend after invoices arrive, budget planning is reactive. Omnea gives finance real-time visibility at the intake stage — before a single dollar is committed.',
+    2:'Approval workflows stuck in email create two problems: requests get lost, and there is no audit trail. Automated routing sends each request to the right approver instantly, with escalation if they don't respond. Average approval time drops from 7–14 days to under 48 hours.',
+    3:'Unmanaged renewals are the highest ROI fix in procurement. Software contracts auto-renew at list price. Annual SaaS spend increases 20–30% without a renewal calendar. Omnea flags every renewal 90 days out, scores supplier health, and surfaces renegotiation opportunities.',
+    4:'Procurement tools that require replacing your ERP create 6–18 month implementation timelines. An orchestration layer sits on top of your existing systems — SAP, Oracle, NetSuite, whatever you have — and connects them without replacement. Omnea implements in weeks, not months.',
+    5:'AI-native procurement is not a feature. It is an architectural difference. Platforms that bolt AI onto legacy tools are still running rules-based logic underneath. Omnea was built with AI from day one: intelligent intake routing, anomaly detection in spend patterns, and renewal risk scoring.',
+    6:'Expansion into new markets is when procurement breaks. New vendors, new compliance requirements, new approval authorities. Companies that standardise intake orchestration before expanding save 40–60% of the admin overhead that typically accompanies new market entry.',
+    7:'Finance teams spending 20+ hours per week on procurement admin are not doing finance work. That time is the cost of an unstructured procurement function. Omnea customers report 60–80% reduction in finance admin time within the first quarter of implementation.'
+  };
+  let recsHTML='<h3>Your top recommendations</h3>';
+  if(weakAreas.length===0){
+    recsHTML+='<div class="rec-item"><span class="rec-icon">+</span><span>No weak areas detected. Your procurement function is operating at a high level. Focus on expanding AI coverage across new market operations, deepening supplier intelligence, and capturing the full ROI of your orchestration layer. Contact us to scope the next phase.</span></div>';
+  }else{
+    weakAreas.slice(0,4).forEach(w=>{
+      recsHTML+='<div class="rec-item"><span class="rec-icon">+</span><span>'+recTexts[w.idx]+'</span></div>';
+    });
+  }
+  recsEl.innerHTML=recsHTML;
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+document.getElementById('gateBtn').addEventListener('click',()=>{
+  const email=document.getElementById('gateEmail').value;
+  if(email&&email.includes('@')){
+    document.querySelector('.gate').innerHTML='<h3 style="color:var(--teal)">Report sent.</h3><p style="color:var(--g4)">Check your inbox. Your personalised Procurement Efficiency Report is on its way. If you do not see it in 5 minutes, check spam.</p>';
+  }
+});
+</script>
+</body>
+</html>

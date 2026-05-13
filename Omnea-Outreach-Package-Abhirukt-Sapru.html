@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Abhirukt's Special Package — MDB Growth Capital</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+--or:#4d65ff;--or-h:#3a4fcc;--ne:#a0f0ff;--ne-d:rgba(160,240,255,.1);
+--dk:#0a0a1a;--dk-s:#10102a;--wh:#fff;--of:#f9fafb;--lt:#f3f4f6;
+--g3:#d1d5db;--g4:#9ca3af;--g5:#6b7280;--g6:#4b5563;
+--red:#ef4444;--grn:#22c55e;--amb:#f59e0b;
+--f:'Outfit',system-ui,sans-serif;--mx:880px;
+}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;font-size:20px}
+body{font-family:var(--f);color:var(--dk);line-height:1.65;background:var(--wh);overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+.rv{opacity:0;transform:translateY(18px);transition:opacity .55s ease,transform .55s ease}
+.rv.on{opacity:1;transform:none}
+.d1{transition-delay:.07s}.d2{transition-delay:.14s}.d3{transition-delay:.21s}
+
+/* Side Nav */
+.sn{position:fixed;left:16px;top:50%;transform:translateY(-50%);z-index:100;display:flex;flex-direction:column;gap:8px}
+.sn a{width:8px;height:8px;border-radius:50%;background:var(--g3);display:block;transition:all .25s;position:relative}
+.sn a.ac{background:var(--or);transform:scale(1.5)}
+.sn a::after{content:attr(data-t);position:absolute;left:18px;top:50%;transform:translateY(-50%);font-size:.6rem;color:var(--g5);white-space:nowrap;opacity:0;transition:opacity .15s;pointer-events:none;font-weight:500}
+.sn a:hover::after{opacity:1}
+@media(max-width:900px){.sn{display:none}}
+
+/* Layout */
+.w{max-width:var(--mx);margin:0 auto;padding:0 24px}
+section{padding:80px 0}
+@media(max-width:640px){section{padding:56px 0}.w{padding:0 16px}}
+.dark{background:var(--dk);color:var(--wh)}
+.dark h1,.dark h2,.dark h3,.dark p,.dark li,.dark td,.dark th,.dark strong{color:var(--wh)}
+.alt{background:var(--of)}
+
+/* Typography */
+h1{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;line-height:1.08;letter-spacing:-.03em;margin-bottom:16px}
+h2{font-size:clamp(1.3rem,3vw,1.8rem);font-weight:700;line-height:1.12;letter-spacing:-.02em;margin-bottom:12px}
+h3{font-size:1rem;font-weight:700;margin-bottom:8px}
+p{margin-bottom:14px;font-size:.95rem}
+.label{font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--or);margin-bottom:6px}
+.dark .label{color:var(--ne)}
+.sub{color:var(--g5);font-size:.92rem;line-height:1.6}
+.dark .sub{color:var(--g4)}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 26px;border-radius:8px;font:600 .88rem/1 var(--f);border:0;cursor:pointer;transition:all .15s}
+.btn:active{transform:scale(.97)}
+.b-or{background:var(--or);color:var(--wh)}.b-or:hover{background:var(--or-h)}
+.b-ne{background:var(--ne);color:var(--dk);font-weight:700}.b-ne:hover{background:#7ad8e8}
+.b-gh{background:transparent;color:var(--wh);border:1.5px solid rgba(255,255,255,.2)}.b-gh:hover{border-color:rgba(255,255,255,.5)}
+
+/* Top Banner */
+.tb{background:var(--dk);color:var(--g4);text-align:center;padding:10px 16px;font-size:.7rem;font-weight:500;border-bottom:1px solid rgba(255,255,255,.06)}
+.tb strong{color:var(--ne)}
+
+/* Hero */
+.hero{min-height:90vh;display:flex;align-items:center;padding-top:40px;padding-bottom:60px}
+.hero h1{font-size:clamp(2rem,5vw,3rem)}
+.hero h1 em{font-style:normal;color:var(--or)}
+.vid-box{width:100%;aspect-ratio:16/9;background:var(--dk-s);border:1px solid rgba(255,255,255,.08);border-radius:12px;display:flex;align-items:center;justify-content:center;margin:24px 0;cursor:pointer;position:relative;overflow:hidden}
+.vid-box::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at center,rgba(160,240,255,.03),transparent 60%)}
+.pb{width:60px;height:60px;border-radius:50%;background:var(--or);display:flex;align-items:center;justify-content:center;transition:transform .2s}
+.pb:hover{transform:scale(1.06)}
+.pb::after{content:'';border-style:solid;border-width:9px 0 9px 16px;border-color:transparent transparent transparent var(--wh);margin-left:3px}
+.callout{background:rgba(160,240,255,.06);border-left:3px solid var(--ne);padding:18px 22px;border-radius:0 8px 8px 0;margin:18px 0}
+.dark .callout{background:rgba(160,240,255,.08)}
+.callout p{margin-bottom:6px;font-size:.9rem}
+.callout p:last-child{margin-bottom:0}
+.wild{font-size:1.15rem;font-weight:700;color:var(--ne)}
+
+/* Cards Grid */
+.cg{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin:20px 0}
+.cd{background:var(--wh);border:1px solid #e5e7eb;border-radius:10px;padding:22px;transition:border-color .15s}
+.cd:hover{border-color:var(--or)}
+.cd .num{width:28px;height:28px;background:var(--or);color:var(--wh);border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.78rem;margin-bottom:10px}
+
+/* CTA Grid */
+.ctg{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:20px 0}
+@media(max-width:600px){.ctg{grid-template-columns:1fr}}
+.ctc{padding:28px 22px;border-radius:10px;text-align:center;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04)}
+.ctc h3{margin-bottom:6px}.ctc p{font-size:.85rem;opacity:.75;margin-bottom:14px}
+
+/* Tables */
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.82rem}
+th{text-align:left;padding:10px 14px;background:var(--or);color:var(--wh);font-weight:600;font-size:.7rem;letter-spacing:.04em;text-transform:uppercase}
+th:first-child{border-radius:6px 0 0 0}th:last-child{border-radius:0 6px 0 0}
+td{padding:10px 14px;border-bottom:1px solid #e5e7eb;vertical-align:top}
+tr:nth-child(even){background:var(--of)}
+.impact{color:var(--grn);font-weight:700}
+.total-row{background:rgba(77,101,255,.04)!important;font-weight:700}
+.dark table th{background:rgba(255,255,255,.1)}
+.dark table td{border-color:rgba(255,255,255,.08);color:rgba(255,255,255,.85)}
+.dark table tr:nth-child(even){background:rgba(255,255,255,.03)}
+
+/* Traffic Lights */
+.tl{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:100px;font-size:.72rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+.tl.red{background:rgba(239,68,68,.1);color:var(--red)}
+.tl.yel{background:rgba(245,158,11,.1);color:var(--amb)}
+.tl.grn{background:rgba(34,197,94,.1);color:var(--grn)}
+.tl .dot{width:8px;height:8px;border-radius:50%}
+.tl.red .dot{background:var(--red)}.tl.yel .dot{background:var(--amb)}.tl.grn .dot{background:var(--grn)}
+
+/* Biggest Leak */
+.bl{background:var(--dk);color:var(--wh);padding:22px;border-radius:10px;margin:20px 0;border-left:4px solid var(--red)}
+.bl h3{color:var(--red);font-size:.9rem;margin-bottom:6px}
+.bl p{color:rgba(255,255,255,.8);margin-bottom:0;font-size:.88rem}
+
+/* Pillars */
+.pg{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin:20px 0}
+.pl{padding:20px;border-radius:10px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08)}
+.pl .pn{font-size:1.6rem;font-weight:800;color:var(--ne);line-height:1;margin-bottom:6px}
+.pl h3{font-size:.88rem;margin-bottom:4px}
+.pl p{font-size:.82rem;color:rgba(255,255,255,.65);margin-bottom:0}
+.tagline{font-style:italic;color:var(--g4);margin-top:20px;font-size:.95rem;text-align:center}
+
+/* Steps */
+.steps{counter-reset:st;margin:20px 0}
+.stp{display:flex;gap:14px;padding:16px 0;border-bottom:1px solid #e5e7eb;align-items:flex-start}
+.stp:last-child{border-bottom:0}
+.stp::before{counter-increment:st;content:counter(st);width:32px;height:32px;min-width:32px;background:var(--or);color:var(--wh);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.78rem;margin-top:2px}
+.stp-c h3{font-size:.88rem;margin-bottom:2px}
+.stp-c p{font-size:.85rem;color:var(--g5);margin-bottom:0}
+
+/* Week Cards */
+.wk{padding:16px 20px;border-radius:8px;background:var(--wh);border:1px solid #e5e7eb;border-left:3px solid var(--or);margin-bottom:12px}
+.wk .wn{font-size:.68rem;font-weight:700;color:var(--or);letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}
+.wk p{font-size:.85rem;color:var(--g5);margin-bottom:0}
+.qw{background:rgba(34,197,94,.05);border:1px solid rgba(34,197,94,.15);border-radius:8px;padding:16px 20px;margin-top:16px}
+.qw h3{color:var(--grn);margin-bottom:8px;font-size:.88rem}
+.qw li{font-size:.85rem;margin-bottom:6px;list-style:none;padding-left:20px;position:relative}
+.qw li::before{content:'+';position:absolute;left:0;color:var(--grn);font-weight:700}
+
+/* FAQ */
+.fq{border-bottom:1px solid #e5e7eb}
+.fq-q{padding:14px 0;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-weight:600;font-size:.88rem;user-select:none;gap:10px}
+.fq-q .ic{width:20px;height:20px;min-width:20px;border-radius:5px;background:var(--of);display:flex;align-items:center;justify-content:center;font-size:.75rem;color:var(--g5);transition:transform .25s,background .25s}
+.fq.open .fq-q .ic{transform:rotate(45deg);background:var(--ne-d);color:var(--dk)}
+.fq-a{max-height:0;overflow:hidden;transition:max-height .3s ease;font-size:.85rem;color:var(--g5);line-height:1.7}
+.fq.open .fq-a{max-height:400px;padding-bottom:14px}
+
+/* About */
+.ab{display:flex;gap:20px;align-items:flex-start;margin:16px 0}
+@media(max-width:600px){.ab{flex-direction:column;align-items:center;text-align:center}}
+.av{width:64px;height:64px;border-radius:50%;background:var(--or);display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:var(--wh);font-weight:800;min-width:64px}
+.ab-i h3{font-size:1rem;margin-bottom:1px}
+.ab-i .role{color:var(--g5);font-size:.82rem;margin-bottom:8px}
+.ln-btn{display:inline-block;padding:6px 16px;border-radius:5px;background:var(--or);color:var(--wh);font-size:.78rem;font-weight:600;margin-top:6px;transition:background .15s}
+.ln-btn:hover{background:var(--or-h)}
+
+/* Offer list */
+.ol li{padding:8px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:.88rem;list-style:none;padding-left:24px;position:relative;color:rgba(255,255,255,.85)}
+.ol li::before{content:'+';position:absolute;left:0;color:var(--ne);font-weight:700;font-size:1rem}
+
+/* Footer */
+footer{text-align:center;padding:20px;font-size:.7rem;color:var(--g4);border-top:1px solid rgba(255,255,255,.06)}
+.dark footer{border-top-color:rgba(255,255,255,.06)}
+
+/* Metric cards */
+.mc{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin:16px 0}
+.mt{text-align:center;padding:22px 14px;border-radius:10px;background:var(--of);border:1px solid #e5e7eb}
+.mt .mn{font-size:2rem;font-weight:800;color:var(--or);line-height:1}
+.mt .ml{font-size:.72rem;color:var(--g5);margin-top:4px}
+
+/* Timeline */
+.tl-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:16px 0}
+.tl-card{border-radius:10px;overflow:hidden;background:var(--wh);border:1px solid #e5e7eb}
+.tl-hd{padding:10px 16px;font-weight:700;font-size:.82rem;color:var(--wh);background:var(--or)}
+.tl-card ul{padding:14px 16px 16px 30px;font-size:.82rem;color:var(--g5)}
+.tl-card li{margin-bottom:4px}
+
+/* Case Study */
+.cs{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:16px 0}
+.cs-p{padding:20px;border-radius:10px}
+.cs-p.ctx{background:#f1f5f9}
+.cs-p.act{background:var(--wh);border:1px solid #e5e7eb}
+.cs-p.res{background:rgba(77,101,255,.04);border:1px solid rgba(77,101,255,.12)}
+.cs-p h3{font-size:.75rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--g5);margin-bottom:8px}
+
+/* Method Flow */
+.mf{display:flex;gap:6px;margin:20px 0;overflow-x:auto}
+@media(max-width:700px){.mf{flex-direction:column}}
+.ms{flex:1;min-width:120px;padding:16px;border-radius:8px;background:var(--of);border:1px solid #e5e7eb;text-align:center}
+.ms .msn{width:24px;height:24px;background:var(--or);color:var(--wh);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;margin:0 auto 8px}
+.ms h3{font-size:.78rem;margin-bottom:2px}
+.ms p{font-size:.7rem;color:var(--g5);margin-bottom:0}
+.ma{display:flex;align-items:center;color:var(--g3);font-size:1rem}
+@media(max-width:700px){.ma{justify-content:center;transform:rotate(90deg)}}
+
+/* Companion Files */
+.cf{background:rgba(160,240,255,.04);border:1px solid rgba(160,240,255,.12);border-radius:10px;padding:20px;margin:16px 0}
+.cf h3{color:var(--dk);font-size:.92rem;margin-bottom:10px}
+.cf-item{padding:10px 0;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem}
+.cf-item:last-child{border-bottom:0}
+.cf-item strong{color:var(--dk)}
+.cf-item p{color:var(--g5);font-size:.8rem;margin:4px 0 0}
+</style>
+</head>
+<body>
+
+<!-- TOP BANNER -->
+<div class="tb">Built for <strong>Abhirukt Sapru</strong>, CEO at Omnea — by Jean Mundabi Fala, MDB Growth Capital</div>
+
+<!-- SIDE NAV -->
+<nav class="sn" id="sideNav">
+<a href="#s1" data-t="Package" class="ac"></a><a href="#s2" data-t="Inside"></a><a href="#s3" data-t="Why Now"></a><a href="#s4" data-t="Problem"></a><a href="#s5" data-t="Revenue Gap"></a><a href="#s6" data-t="Get Started"></a><a href="#s7" data-t="Attraction"></a><a href="#s8" data-t="Alignment"></a><a href="#s9" data-t="Activation"></a><a href="#s10" data-t="Three Changes"></a><a href="#s11" data-t="US Launch"></a><a href="#s12" data-t="Running Start"></a><a href="#s13" data-t="Credibility"></a><a href="#s14" data-t="Competition"></a><a href="#s15" data-t="Content Gap"></a><a href="#s16" data-t="Buyer Language"></a><a href="#s17" data-t="Weeks 1-4"></a><a href="#s18" data-t="Weeks 5-12"></a><a href="#s19" data-t="Case Studies"></a><a href="#s20" data-t="Full Funnel"></a><a href="#s21" data-t="Growth Loops"></a><a href="#s22" data-t="FAQ"></a><a href="#s23" data-t="About"></a><a href="#s24" data-t="Offer"></a>
+</nav>
+
+<!-- CARD 1: HERO -->
+<section class="dark hero" id="s1"><div class="w">
+<span class="label rv">MDB Growth Capital</span>
+<h1 class="rv d1">Abhirukt's Special Package</h1>
+<p class="sub rv d2">A Growth Marketing Blueprint for Omnea — How to Build the Demand Gen Engine That Turns $75M in Funding and Number One UK Startup Into Enterprise Pipeline</p>
+<div class="vid-box rv d3" id="videoEmbed"><div class="pb"></div></div>
+<div class="callout rv">
+<p><strong>Do Not Skip The Video Above</strong></p>
+</div>
+<div class="callout rv d1">
+<p><strong>How This Document Can Help You</strong></p>
+<p>This doc was crafted solely for you, Abhirukt. Every page is built around Omnea's exact inflection point right now.</p>
+<p>You raised $50M. You were named the number one UK startup for 2026. You opened a New York office. You have Spotify, MongoDB, and Albertsons as customers.</p>
+<p>And you have zero marketing people.</p>
+<p>This package maps exactly what a growth marketing engine looks like for Omnea. And it shows what the first 90 days of building that engine look like.</p>
+<p class="wild">Our wild goal? $3M to $6M in marketing sourced pipeline within 12 months.</p>
+</div>
+</div></section>
+
+<!-- CARD 2: WHAT'S INSIDE -->
+<section id="s2"><div class="w">
+<span class="label rv">What You Get</span>
+<h2 class="rv">What's Inside Your Package?</h2>
+<div class="cg">
+<div class="cd rv"><div class="num">1</div><h3>The Competitive Content Gap Analysis</h3><p>What Zip and Coupa publish that Omnea does not. Which procurement keywords drive enterprise buyer traffic. Where Omnea is invisible to the buyers who are actively searching.</p></div>
+<div class="cd rv d1"><div class="num">2</div><h3>The Funnel Diagnostic</h3><p>Top to bottom. Every stage of how enterprise procurement buyers discover, evaluate, and buy Omnea. Scored. Evidenced. With the single biggest leak identified and quantified.</p></div>
+<div class="cd rv d2"><div class="num">3</div><h3>The Revenue Gap</h3><p>What zero marketing costs Omnea in pipeline every month. Broken down by lost US pipeline, missing content traffic, and sales cycle inefficiency.</p></div>
+<div class="cd rv d3"><div class="num">4</div><h3>The 90 Day Growth Marketing Launch Roadmap</h3><p>Week by week. What your Founding Growth Marketing Lead should build first, test next, and scale by day 90. Ready to hand to them on their first morning.</p></div>
+<div class="cd rv"><div class="num">5</div><h3>The Case Study Framework</h3><p>Templates for Spotify, MongoDB, and Albertsons. Structured to convert enterprise procurement buyers. Because having those logos without detailed stories is leaving pipeline on the table.</p></div>
+<div class="cd rv d1"><div class="num">6</div><h3>The Full Funnel Map</h3><p>How Omnea gets more enterprise clients and scales across two continents. Each stage shows what happens now, what is missing, and what we would install.</p></div>
+</div>
+</div></section>
+
+<!-- CARD 3: WHY OMNEA -->
+<section class="alt" id="s3"><div class="w">
+<span class="label rv">The Research</span>
+<h2 class="rv">Why Omnea? Why Now?</h2>
+<div class="callout rv"><p><strong>First: $50M from Insight Partners and Khosla Ventures.</strong><br>September 2025. These are not patient investors. Khosla expects category winners. Insight expects scalable go to market. They did not invest $50M in a sales led motion. They invested in a company that builds a growth engine.</p></div>
+<div class="callout rv d1"><p><strong>Second: number one UK Startup for 2026.</strong><br>Startups 100 Index. Maximum brand momentum. But momentum without distribution is decay. That award should be fuelling content, email campaigns, comparison pages, and case study outreach. Right now it sits on the homepage and a press release.</p></div>
+<div class="callout rv d2"><p><strong>Third: Arie Barendrecht hired as US General Manager.</strong><br>January 2026. New York office opened. The US procurement market is massive. But it is also where Zip and Coupa already own mindshare. You cannot enter the US market without a demand generation engine.</p></div>
+<div class="callout rv d3"><p><strong>Fourth: Founding Growth Marketing Lead posted.</strong><br>161 employees. Zero in marketing. The word "Founding" tells the story. This function does not exist. Every enterprise conversation Omnea has ever had started because a founder or sales rep made it happen personally.</p></div>
+<p class="rv" style="margin-top:12px">That is the gap this package addresses.</p>
+</div></section>
+
+<!-- CARD 4: THE PROBLEM -->
+<section id="s4"><div class="w">
+<span class="label rv">The Insight</span>
+<h2 class="rv">Product Market Fit Without Growth Market Fit</h2>
+<p class="rv d1">Omnea has proven the product works. Spotify uses it. MongoDB uses it. Albertsons uses it. G2 named Omnea a Leader in Procurement Orchestration. Revenue 10x in 18 months.</p>
+<p class="rv d2">The product is not the problem. Distribution is the problem.</p>
+<div class="callout rv d3">
+<p><strong>Every procurement buyer searching "Coupa alternative" finds Zip. Not Omnea.</strong></p>
+<p><strong>Every Chief Financial Officer researching procurement orchestration reads Coupa's content. Not Omnea's.</strong></p>
+<p><strong>Every Chief Procurement Officer comparing vendors sees Zip's comparison pages. Omnea has none.</strong></p>
+</div>
+<p class="rv">The best product in the category with the worst distribution in the category. That is the gap. And every month it stays open, Zip and Coupa add more enterprise customers who should have been Omnea's.</p>
+</div></section>
+
+<!-- CARD 5: REVENUE GAP -->
+<section class="alt" id="s5"><div class="w">
+<span class="label rv">The Numbers</span>
+<h2 class="rv">What Zero Marketing Costs Omnea Every Month</h2>
+<table class="rv d1">
+<thead><tr><th>Metric</th><th>Current</th><th>Notes</th></tr></thead>
+<tbody>
+<tr><td><strong>Marketing sourced pipeline</strong></td><td>$0</td><td>No marketing function exists</td></tr>
+<tr><td><strong>US demand generation</strong></td><td>$0</td><td>New York office open, zero marketing presence</td></tr>
+<tr><td><strong>Enterprise case studies with metrics</strong></td><td>0</td><td>Customer logos shown, no detailed stories</td></tr>
+<tr><td><strong>Comparison pages</strong></td><td>0</td><td>Competitor traffic going elsewhere</td></tr>
+<tr><td><strong>SEO content for procurement keywords</strong></td><td>None</td><td>Coupa and Zip dominate organic results</td></tr>
+</tbody>
+</table>
+<h3 class="rv d2" style="margin-top:20px">The Gap: $3M to $6M Over 12 Months</h3>
+<table class="rv d3">
+<thead><tr><th>Cost Category</th><th>Estimated Annual Impact</th></tr></thead>
+<tbody>
+<tr><td>Lost US pipeline from zero marketing presence</td><td class="impact">$2M to $3M</td></tr>
+<tr><td>Lost organic traffic from missing content engine</td><td class="impact">$500K to $1M</td></tr>
+<tr><td>Sales cycle inefficiency without marketing support</td><td class="impact">$500K to $1M</td></tr>
+<tr><td>Competitor keywords going unanswered</td><td class="impact">$300K to $800K</td></tr>
+<tr class="total-row"><td><strong>Total Cost of Inaction</strong></td><td class="impact">$3M to $6M+</td></tr>
+</tbody>
+</table>
+<p class="rv" style="margin-top:14px;font-size:.88rem">At $150K average annual contract value, even 3 to 5 additional enterprise conversations per month changes Omnea's trajectory. Those conversations are happening right now. They are just happening with Zip and Coupa.</p>
+</div></section>
+
+<!-- CARD 6: CTA -->
+<section class="dark" id="s6"><div class="w" style="text-align:center">
+<h2 class="rv">2 Options To Get Started</h2>
+<div class="ctg rv d1">
+<div class="ctc"><h3>Just Reply</h3><p>Reply to the email this came with. Tell me which section resonated most.</p><a class="btn b-gh" href="mailto:">Reply to Email</a></div>
+<div class="ctc"><h3>Book A Call</h3><p>15 minutes. I walk you through the three changes. You keep everything either way.</p><a class="btn b-ne" href="https://cal.com/jean-m-8f4kbr/15min" target="_blank">Book 15 Minutes</a></div>
+</div>
+<p class="rv d2" style="margin-top:16px;font-size:.82rem;color:var(--g4)">No commitment either way. Read the document first. Then decide.</p>
+</div></section>
+
+<!-- CARD 7: LEAK MAP ATTRACTION -->
+<section id="s7"><div class="w">
+<span class="label rv">AAA Diagnostic</span>
+<h2 class="rv">The Leak Map: Attraction Layer</h2>
+<div class="rv"><span class="tl red"><span class="dot"></span>RED</span></div>
+<p class="rv d1" style="margin-top:12px">All enterprise pipeline comes from founder networks and sales outreach. There is no marketing layer generating awareness or inbound pipeline.</p>
+<table class="rv d2">
+<thead><tr><th>Source</th><th>Current Contribution</th><th>Scalable?</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td><strong>Founder and ex Tessian network</strong></td><td>Primary</td><td>No. Finite network.</td><td>Working but not scalable</td></tr>
+<tr><td><strong>Sales team outreach</strong></td><td>Primary</td><td>Partially. Linear growth.</td><td>Active but expensive</td></tr>
+<tr><td><strong>G2 presence and awards</strong></td><td>Passive</td><td>Partially. Requires content.</td><td>Credibility but not pipeline</td></tr>
+<tr><td><strong>Content marketing and SEO</strong></td><td>$0</td><td>Yes. Compounding.</td><td>Does not exist</td></tr>
+<tr><td><strong>Paid acquisition</strong></td><td>$0</td><td>Yes. Immediate.</td><td>Does not exist</td></tr>
+<tr><td><strong>US market demand generation</strong></td><td>$0</td><td>Yes. Critical for expansion.</td><td>Does not exist</td></tr>
+<tr><td><strong>Competitive comparison content</strong></td><td>None</td><td>Yes. Captures competitor traffic.</td><td>Does not exist</td></tr>
+</tbody>
+</table>
+<p class="rv d3" style="margin-top:12px;font-size:.88rem">Omnea has enterprise customers that prove the product works. But every customer was acquired through a relationship, not a system. That worked to $10M to $30M in annual recurring revenue. It does not work to $100M.</p>
+</div></section>
+
+<!-- CARD 8: LEAK MAP ALIGNMENT -->
+<section class="alt" id="s8"><div class="w">
+<h2 class="rv">The Leak Map: Alignment Layer</h2>
+<div class="rv"><span class="tl yel"><span class="dot"></span>YELLOW</span></div>
+<table class="rv d1" style="margin-top:12px">
+<thead><tr><th>Touchpoint</th><th>Current State</th><th>Problem</th><th>Fix</th></tr></thead>
+<tbody>
+<tr><td><strong>omnea.co</strong></td><td>"Book a demo" only CTA</td><td>Single conversion path. No free trial. No ROI calculator. No detailed case studies.</td><td>Case study pages with metrics. ROI calculator. Comparison pages versus Zip, Coupa, SAP Ariba.</td></tr>
+<tr><td><strong>Competitive positioning</strong></td><td>"AI native" messaging</td><td>Not specific enough for a budget meeting. Chief Financial Officers need ROI proof.</td><td>Comparison pages showing implementation speed (4 weeks versus 12 months for Coupa).</td></tr>
+<tr><td><strong>Enterprise proof</strong></td><td>Logos only</td><td>Logos build credibility. Case studies with metrics build pipeline.</td><td>3 to 5 published case studies with specific outcomes.</td></tr>
+<tr><td><strong>G2 presence</strong></td><td>Leader, number 1 Results</td><td>Awards on homepage. No content strategy to capture G2 traffic.</td><td>G2 profile optimised with screenshots, comparison content.</td></tr>
+</tbody>
+</table>
+<p class="rv d2" style="margin-top:12px;font-size:.88rem">When a procurement buyer finds Omnea, the product sells itself. The problem is that most procurement buyers never reach that point.</p>
+</div></section>
+
+<!-- CARD 9: LEAK MAP ACTIVATION -->
+<section id="s9"><div class="w">
+<h2 class="rv">The Leak Map: Activation Layer</h2>
+<div class="rv"><span class="tl yel"><span class="dot"></span>YELLOW</span></div>
+<table class="rv d1" style="margin-top:12px">
+<thead><tr><th>Stage</th><th>Current</th><th>Problem</th><th>Fix</th></tr></thead>
+<tbody>
+<tr><td><strong>Demo request to demo</strong></td><td>Fast. Team is responsive.</td><td>No issues at this stage.</td><td>Maintain.</td></tr>
+<tr><td><strong>Demo to evaluation</strong></td><td>Strong. Product impresses.</td><td>No post demo nurture. No competitor comparison sent.</td><td>Automated post demo sequence: case study, ROI calculator, competitive comparison.</td></tr>
+<tr><td><strong>Evaluation to close</strong></td><td>3 to 9 months (enterprise)</td><td>Multiple stakeholders need different content.</td><td>Multi stakeholder content tracks. Chief Financial Officer sees ROI. Chief Procurement Officer sees orchestration. IT sees integration.</td></tr>
+<tr><td><strong>Customer expansion</strong></td><td>Manual. Relationship driven.</td><td>No automated expansion signals.</td><td>Usage triggers: module adoption, team growth, renewal approaching.</td></tr>
+</tbody>
+</table>
+<div class="bl rv d2">
+<h3>THE BIGGEST LEAK: ATTRACTION</h3>
+<p>Omnea has product market fit. Spotify, MongoDB, Albertsons, Monzo, Wise proved that. But enterprise procurement buyers who search for "procurement orchestration platform" or "Coupa alternative" do not find Omnea. They find Zip. They find Coupa. They find SAP Ariba. The product wins when buyers see it. Marketing makes them see it. That layer does not exist.</p>
+</div>
+</div></section>
+
+<!-- CARD 10: CHANGE 1 -->
+<section class="alt" id="s10"><div class="w">
+<span class="label rv">Priority Fixes</span>
+<h2 class="rv">Change 1: Build the Content Engine That Captures Procurement Search Traffic</h2>
+<p class="rv d1">Coupa has thousands of indexed content pages. Zip publishes comparison pages for every competitor. Omnea has a blog with a handful of posts. Every procurement keyword search that goes to a competitor is a missed enterprise conversation.</p>
+<div class="steps rv d2">
+<div class="stp"><div class="stp-c"><h3>Competitor comparison pages</h3><p>"Omnea versus Zip," "Omnea versus Coupa," "Omnea versus SAP Ariba." Each with feature tables, implementation timelines, and customer outcomes.</p></div></div>
+<div class="stp"><div class="stp-c"><h3>Category content</h3><p>"What is procurement orchestration," "How to reduce intake to approval cycle time." Each targeting keywords procurement buyers actually search.</p></div></div>
+<div class="stp"><div class="stp-c"><h3>Case study framework</h3><p>Spotify, MongoDB, and Albertsons. Structured around Chief Financial Officer metrics: spend visibility, approval cycle time, compliance, time to value.</p></div></div>
+<div class="stp"><div class="stp-c"><h3>ROI calculator</h3><p>The navigation link already exists on omnea.co but the page does not. Build it. Procurement buyers use calculators to build internal business cases.</p></div></div>
+</div>
+<div class="callout rv d3"><p><strong>Estimated impact:</strong> 10 to 20 additional enterprise conversations per month within 6 to 9 months. At $150K average annual contract value, that is $1.5M to $3M in pipeline annually.</p></div>
+</div></section>
+
+<!-- CARD 11: CHANGE 2 -->
+<section id="s11"><div class="w">
+<h2 class="rv">Change 2: Launch US Market Demand Generation Before Zip Locks You Out</h2>
+<p class="rv d1">Arie Barendrecht was hired as US General Manager in January 2026. New York office is open. But there is zero US marketing presence. Zip dominates US procurement mindshare. Every month without US demand generation is 5 to 10 enterprise conversations that never start.</p>
+<div class="steps rv d2">
+<div class="stp"><div class="stp-c"><h3>US specific landing page</h3><p>American enterprise case studies (Albertsons is your strongest US proof point) and US market specific messaging.</p></div></div>
+<div class="stp"><div class="stp-c"><h3>LinkedIn paid acquisition</h3><p>Targeting US based Chief Financial Officers, Chief Procurement Officers, and Vice Presidents of Procurement at companies with $50M+ in annual spend.</p></div></div>
+<div class="stp"><div class="stp-c"><h3>Conference strategy</h3><p>Procurecon, Digital Procurement World, and Gartner Supply Chain Symposium. Pre event Account Based Marketing. On site meetings. Post event nurture.</p></div></div>
+<div class="stp"><div class="stp-c"><h3>Account Based Marketing</h3><p>Targeting 50 to 100 US enterprise accounts. Personalised outreach combining Arie's network with marketing air cover.</p></div></div>
+</div>
+<div class="callout rv d3"><p><strong>Estimated impact:</strong> US pipeline from zero to $2M to $3M within 12 months. The US procurement software market is larger than Europe. Being 6 months late here costs more than being 6 months late anywhere else.</p></div>
+</div></section>
+
+<!-- CARD 12: CHANGE 3 -->
+<section class="alt" id="s12"><div class="w">
+<h2 class="rv">Change 3: Give Your Founding Growth Marketing Lead a Running Start</h2>
+<p class="rv d1">Your JD asks for a "performance marketer meets growth engineer" with 7+ years of experience who can "build Omnea's complete growth engine." That person is building from a blank page. Even the best hire spends their first 3 months doing discovery. That is 3 months of $50M in funding generating zero marketing sourced pipeline.</p>
+<div class="steps rv d2">
+<div class="stp"><div class="stp-c"><h3>90 day growth marketing launch roadmap</h3><p>Week by week. What to build (infrastructure), what to test (experiments), what to scale (winners).</p></div></div>
+<div class="stp"><div class="stp-c"><h3>Content calendar</h3><p>30 pieces mapped to procurement buyer search intent. Category pages, comparison pages, case studies, thought leadership.</p></div></div>
+<div class="stp"><div class="stp-c"><h3>Attribution framework</h3><p>Connecting website, paid channels, and content to pipeline outcomes.</p></div></div>
+<div class="stp"><div class="stp-c"><h3>Experimentation framework</h3><p>10 specific experiments for the first 90 days. Each with hypothesis, test design, budget, and success metric.</p></div></div>
+<div class="stp"><div class="stp-c"><h3>Competitive content audit</h3><p>Exactly what Zip and Coupa publish that Omnea does not. The gap visualised.</p></div></div>
+</div>
+<div class="callout rv d3"><p><strong>Estimated impact:</strong> The founding hire executes from day one instead of month four. $50M in funding starts generating marketing sourced pipeline 90 days earlier.</p></div>
+</div></section>
+
+<!-- CARD 13: CREDIBILITY -->
+<section id="s13"><div class="w">
+<span class="label rv">Why Listen To Us</span>
+<h2 class="rv">The package itself is the proof.</h2>
+<p class="sub rv">Everything in this document is based on direct research. Omnea's funding history verified through Crunchbase and TechCrunch. Customer base confirmed through press releases. Competitive landscape mapped through G2, Google search, and product analysis. JD intelligence extracted from your Founding Growth Marketing Lead posting. This took hours, not minutes.</p>
+<div class="mc rv d1">
+<div class="mt"><div class="mn">15%</div><div class="ml">Revenue growth at BT/EE</div></div>
+<div class="mt"><div class="mn">GBP 260K</div><div class="ml">Annual CAC savings at Santander</div></div>
+<div class="mt"><div class="mn">20%</div><div class="ml">Conversion improvement (Santander)</div></div>
+</div>
+<p class="sub rv d2">You are a $75M funded company building a marketing function for the first time. That requires someone who has built demand generation at enterprise scale and understands the difference between spending money on marketing and building marketing infrastructure that compounds.</p>
+</div></section>
+
+<!-- CARD 14: COMPETITION -->
+<section class="alt" id="s14"><div class="w">
+<span class="label rv">Market Position</span>
+<h2 class="rv">The Procurement Orchestration Landscape</h2>
+<div style="overflow-x:auto" class="rv d1">
+<table>
+<thead><tr><th>Factor</th><th style="background:var(--dk)">Omnea</th><th>Zip</th><th>Coupa</th><th>SAP Ariba</th></tr></thead>
+<tbody>
+<tr><td>Architecture</td><td><strong>AI native (built with AI)</strong></td><td>Intake to pay</td><td>End to end suite</td><td>ERP integration</td></tr>
+<tr><td>Implementation</td><td><strong>Live in weeks</strong></td><td>Moderate</td><td>12 to 18 months</td><td>Long</td></tr>
+<tr><td>Approach</td><td><strong>Orchestration (keep existing tools)</strong></td><td>Platform replacement</td><td>Full suite</td><td>SAP ecosystem</td></tr>
+<tr><td>G2 Status</td><td><strong>Leader, number 1 Results</strong></td><td>Strong</td><td>Established</td><td>Enterprise</td></tr>
+<tr><td>Enterprise Proof</td><td><strong>Spotify, MongoDB, Albertsons</strong></td><td>Multiple</td><td>Extensive</td><td>SAP base</td></tr>
+<tr><td>Marketing Engine</td><td>Does not exist</td><td><strong>2 to 3 years ahead</strong></td><td><strong>Thousands of pages</strong></td><td>Analyst coverage</td></tr>
+</tbody>
+</table>
+</div>
+<div class="callout rv d2"><p><strong>Omnea's product is equal or better. Zip's marketing is 2 to 3 years ahead.</strong> Every Chief Financial Officer who has suffered through an 18 month Coupa implementation is an Omnea prospect. But they need to hear about Omnea first.</p></div>
+</div></section>
+
+<!-- CARD 15: CONTENT GAP -->
+<section id="s15"><div class="w">
+<span class="label rv">The Gap</span>
+<h2 class="rv">What Zip and Coupa Publish That Omnea Does Not</h2>
+<table class="rv d1">
+<thead><tr><th>Content Type</th><th>Zip</th><th>Coupa</th><th>Omnea</th></tr></thead>
+<tbody>
+<tr><td><strong>Competitor comparison pages</strong></td><td>Yes (every competitor)</td><td>Yes (extensive)</td><td>None</td></tr>
+<tr><td><strong>ROI calculator</strong></td><td>Yes</td><td>Yes</td><td>Link in nav, page missing</td></tr>
+<tr><td><strong>Enterprise case studies with metrics</strong></td><td>Yes (multiple)</td><td>Yes (extensive)</td><td>Logos only, no stories</td></tr>
+<tr><td><strong>Category definition content</strong></td><td>Yes</td><td>Yes</td><td>Minimal</td></tr>
+<tr><td><strong>Procurement guides and playbooks</strong></td><td>Yes</td><td>Yes (library)</td><td>None</td></tr>
+<tr><td><strong>SEO optimised blog at scale</strong></td><td>Yes</td><td>Yes (thousands of pages)</td><td>Handful of posts</td></tr>
+<tr><td><strong>Video content and webinars</strong></td><td>Yes</td><td>Yes</td><td>None found</td></tr>
+</tbody>
+</table>
+<div class="callout rv d2"><p><strong>The fix:</strong> 30 pieces of content in 90 days. Comparison pages first (capture competitor search traffic). Case studies second (prove enterprise outcomes). Category content third (own the "procurement orchestration" keyword).</p></div>
+</div></section>
+
+<!-- CARD 16: BUYER LANGUAGE -->
+<section class="alt" id="s16"><div class="w">
+<span class="label rv">Mind Reader</span>
+<h2 class="rv">The Language of Procurement Buyers</h2>
+<p class="rv d1">This is not our language. This is your buyer's language. Pulled from G2 reviews, procurement forums, and industry analysis.</p>
+<div class="callout rv d2">
+<p><strong>What they say about the problem Omnea solves:</strong></p>
+<p>"We cannot get visibility on what teams are actually spending." — The maverick spend problem that keeps Chief Financial Officers awake.</p>
+<p>"The Coupa implementation took 18 months and half the company still does not use it." — The legacy tool frustration that makes Omnea's speed a weapon.</p>
+<p>"Our procurement process is still email and spreadsheets." — The reality for most companies under $1B in revenue.</p>
+</div>
+<div class="callout rv d3">
+<p><strong>What they say about Omnea:</strong></p>
+<p>"Helped automate complex and tedious procurement and renewal processes." — G2 reviewer, Spring 2026.</p>
+<p>"Forward thinking procurement or finance teams." — G2 reviewer recommendation.</p>
+</div>
+<h3 class="rv" style="margin-top:16px">Phrases that signal instant credibility:</h3>
+<div class="steps rv">
+<div class="stp"><div class="stp-c"><h3>"Intake to approval cycle time"</h3><p>Shows you understand the core metric.</p></div></div>
+<div class="stp"><div class="stp-c"><h3>"Orchestration layer versus rip and replace"</h3><p>Shows you understand Omnea's positioning.</p></div></div>
+<div class="stp"><div class="stp-c"><h3>"Procurement operations at $50M+ spend"</h3><p>Shows you speak enterprise procurement.</p></div></div>
+</div>
+</div></section>
+
+<!-- CARD 17: WEEKS 1-4 -->
+<section id="s17"><div class="w">
+<span class="label rv">90 Day Roadmap</span>
+<h2 class="rv">Weeks 1 to 4: Foundation</h2>
+<div class="wk rv"><div class="wn">Week 1 <span style="float:right;font-size:.6rem;padding:2px 6px;border-radius:3px;background:rgba(77,101,255,.1);color:var(--or)">CONTENT ENGINE</span></div><h3>Competitive Content Audit</h3><p>Zip, Coupa, SAP Ariba, Precoro. Gap analysis document with specific content to build. Keyword map for 50 procurement buyer search terms.</p></div>
+<div class="wk rv"><div class="wn">Week 2 <span style="float:right;font-size:.6rem;padding:2px 6px;border-radius:3px;background:rgba(34,197,94,.1);color:var(--grn)">ENTERPRISE PROOF</span></div><h3>Case Study Interviews</h3><p>Structured interview framework sent to customer success for Spotify, MongoDB, Albertsons. Attribution framework design (website to pipeline).</p></div>
+<div class="wk rv"><div class="wn">Week 3 <span style="float:right;font-size:.6rem;padding:2px 6px;border-radius:3px;background:rgba(245,158,11,.1);color:var(--amb)">MIDDLE FUNNEL</span></div><h3>First 3 Comparison Pages</h3><p>Omnea versus Zip, versus Coupa, versus SAP Ariba. Live on omnea.co. ROI calculator built and deployed (replaces the empty navigation link).</p></div>
+<div class="wk rv"><div class="wn">Week 4 <span style="float:right;font-size:.6rem;padding:2px 6px;border-radius:3px;background:rgba(239,68,68,.1);color:var(--red)">US EXPANSION</span></div><h3>First Case Study and US Landing Page</h3><p>First case study published (strongest customer story). US specific landing page live with Albertsons featured.</p></div>
+</div></section>
+
+<!-- CARD 18: WEEKS 5-12 -->
+<section class="alt" id="s18"><div class="w">
+<h2 class="rv">Weeks 5 to 12: Experimentation and Scale</h2>
+<div class="wk rv"><div class="wn">Week 5 <span style="float:right;font-size:.6rem;padding:2px 6px;border-radius:3px;background:rgba(77,101,255,.1);color:var(--or)">TOP FUNNEL</span></div><h3>LinkedIn Paid Acquisition Launched</h3><p>Chief Financial Officer and Chief Procurement Officer targeting. UK and US. First category content published ("What is procurement orchestration").</p></div>
+<div class="wk rv"><div class="wn">Week 6 <span style="float:right;font-size:.6rem;padding:2px 6px;border-radius:3px;background:rgba(245,158,11,.1);color:var(--amb)">MIDDLE FUNNEL</span></div><h3>Conference Pipeline and A/B Testing</h3><p>Procurecon, Digital Procurement World planning. Pre event Account Based Marketing campaigns designed. A/B testing framework launched.</p></div>
+<div class="wk rv"><div class="wn">Week 7 <span style="float:right;font-size:.6rem;padding:2px 6px;border-radius:3px;background:rgba(34,197,94,.1);color:var(--grn)">ENTERPRISE PROOF</span></div><h3>Second and Third Case Studies</h3><p>Enterprise proof library growing. First full month of attributed data reviewed. Channel ROI analysis.</p></div>
+<div class="wk rv"><div class="wn">Week 8 <span style="float:right;font-size:.6rem;padding:2px 6px;border-radius:3px;background:rgba(239,68,68,.1);color:var(--red)">US EXPANSION</span></div><h3>Account Based Marketing Campaign</h3><p>Targeting 50 US enterprise accounts. Personalised outreach with marketing air cover. Content calendar for months 4 to 6 finalised.</p></div>
+<div class="wk rv"><div class="wn">Week 9 <span style="float:right;font-size:.6rem;padding:2px 6px;border-radius:3px;background:rgba(77,101,255,.1);color:var(--or)">SCALE</span></div><h3>Scale Winning Channels</h3><p>Paid media scaled on channels with proven pipeline ROI. Comparison pages indexed and ranking.</p></div>
+<div class="wk rv"><div class="wn">Week 10 <span style="float:right;font-size:.6rem;padding:2px 6px;border-radius:3px;background:rgba(239,68,68,.1);color:var(--red)">US PIPELINE</span></div><h3>US Pipeline Measurement</h3><p>First US pipeline results measured. Nurture sequences live for post demo follow up.</p></div>
+<div class="wk rv"><div class="wn">Week 11 <span style="float:right;font-size:.6rem;padding:2px 6px;border-radius:3px;background:rgba(245,158,11,.1);color:var(--amb)">REPORTING</span></div><h3>Board Reporting Dashboard</h3><p>Marketing sourced pipeline, channel attribution, cost per opportunity. Second Account Based Marketing wave launched (next 50 US accounts).</p></div>
+<div class="wk rv"><div class="wn">Week 12 <span style="float:right;font-size:.6rem;padding:2px 6px;border-radius:3px;background:rgba(34,197,94,.1);color:var(--grn)">DOCUMENT</span></div><h3>Playbook Handoff</h3><p>Quarterly review and Q2 plan. Experimentation playbook documented. Every test, result, and learning captured for the team.</p></div>
+<div class="qw rv">
+<h3>Quick Wins (Starting Now)</h3>
+<ul>
+<li>Build the ROI calculator page (the nav link already exists)</li>
+<li>Publish first "Omnea versus Zip" comparison page</li>
+<li>Start Spotify case study interview process</li>
+</ul>
+</div>
+</div></section>
+
+<!-- CARD 19: CASE STUDY FRAMEWORK -->
+<section id="s19"><div class="w">
+<span class="label rv">Proof Assets</span>
+<h2 class="rv">How to Turn Spotify, MongoDB, and Albertsons Into Pipeline</h2>
+<p class="rv d1">Having Spotify as a customer is impressive. Having a case study that says "Spotify reduced intake to approval cycle time by 60% and eliminated 80% of maverick spend within 90 days of deploying Omnea" is a pipeline generator.</p>
+<div class="cs rv d2">
+<div class="cs-p ctx"><h3>The Before</h3><p>What was their procurement process before Omnea? Email and spreadsheets? Coupa fatigue? Manual approvals taking weeks? Specific numbers: how many purchase requests per month, how long did approvals take.</p></div>
+<div class="cs-p act"><h3>Why They Chose Omnea</h3><p>What did they evaluate? Why did they reject Coupa, Zip, or SAP Ariba? What was the deciding factor? Speed of implementation? Orchestration approach? AI native capability?</p></div>
+<div class="cs-p res"><h3>The After</h3><p><strong>Approval cycle time reduction.</strong> Maverick spend reduction. Procurement team time saved. Specific metrics that a Chief Financial Officer can use in a board presentation to justify the purchase.</p></div>
+</div>
+<div class="callout rv d3"><p><strong>This framework should be sent to Omnea's customer success team this week.</strong> The first case study should be published within 30 days. Each published case study generates the next enterprise conversation.</p></div>
+</div></section>
+
+<!-- CARD 20: FULL FUNNEL -->
+<section class="dark" id="s20"><div class="w">
+<span class="label rv">How It All Connects</span>
+<h2 class="rv">How Omnea Gets More Enterprise Clients and Scales Across Two Continents</h2>
+<p class="sub rv d1">Every stage shows what happens now, what is missing, and what we would install. Nothing is disconnected.</p>
+
+<!-- Funnel Cascade Visual -->
+<div style="margin:28px 0" class="rv d2">
+
+<!-- TOP OF FUNNEL -->
+<div style="padding:24px;border-radius:10px 10px 0 0;background:rgba(77,101,255,.08);border:1px solid rgba(77,101,255,.2);border-bottom:0">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px">
+<div style="font-size:1rem;font-weight:800;color:var(--or)">Top of Funnel</div>
+<div style="font-size:.7rem;padding:3px 10px;border-radius:4px;background:rgba(77,101,255,.15);color:var(--or);font-weight:600">DISCOVER</div>
+</div>
+<p style="font-size:.85rem;color:var(--g4);margin-bottom:12px">Enterprise procurement buyer searches for a solution. They do not know Omnea exists.</p>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+<div style="padding:10px 12px;border-radius:6px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);font-size:.8rem">
+<strong style="color:var(--wh);font-size:.75rem">What we install:</strong>
+<ul style="margin:6px 0 0 14px;font-size:.78rem;color:var(--g4)">
+<li>Comparison pages (vs Zip, vs Coupa)</li>
+<li>Category content (procurement orchestration)</li>
+<li>LinkedIn paid acquisition (UK and US)</li>
+<li>Conference presence (Procurecon, DPW)</li>
+</ul>
+</div>
+<div style="padding:10px 12px;border-radius:6px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);font-size:.8rem">
+<strong style="color:var(--wh);font-size:.75rem">What's missing now:</strong>
+<ul style="margin:6px 0 0 14px;font-size:.78rem;color:var(--g4)">
+<li>Zero comparison content on site</li>
+<li>No SEO engine for procurement keywords</li>
+<li>$0 in paid acquisition</li>
+<li>No US marketing presence</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div style="text-align:center;padding:6px 0;background:var(--dk-s);font-size:.9rem;color:var(--g4)">&#8595;</div>
+
+<!-- MIDDLE OF FUNNEL -->
+<div style="padding:24px;background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.15);border-bottom:0;border-top:0">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px">
+<div style="font-size:1rem;font-weight:800;color:var(--amb)">Middle of Funnel</div>
+<div style="font-size:.7rem;padding:3px 10px;border-radius:4px;background:rgba(245,158,11,.12);color:var(--amb);font-weight:600">EVALUATE</div>
+</div>
+<p style="font-size:.85rem;color:var(--g4);margin-bottom:12px">They land on omnea.co. Read the proof. Compare to Zip and Coupa. Decide whether to book a demo.</p>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+<div style="padding:10px 12px;border-radius:6px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);font-size:.8rem">
+<strong style="color:var(--wh);font-size:.75rem">What we install:</strong>
+<ul style="margin:6px 0 0 14px;font-size:.78rem;color:var(--g4)">
+<li>Enterprise case studies with Chief Financial Officer metrics</li>
+<li>ROI calculator (page currently missing)</li>
+<li>US specific landing page</li>
+<li>G2 profile optimised with screenshots</li>
+</ul>
+</div>
+<div style="padding:10px 12px;border-radius:6px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);font-size:.8rem">
+<strong style="color:var(--wh);font-size:.75rem">What's missing now:</strong>
+<ul style="margin:6px 0 0 14px;font-size:.78rem;color:var(--g4)">
+<li>No case studies with metrics (logos only)</li>
+<li>ROI calculator link in nav, page missing</li>
+<li>No US specific content</li>
+<li>No competitive positioning pages</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div style="text-align:center;padding:6px 0;background:var(--dk-s);font-size:.9rem;color:var(--g4)">&#8595;</div>
+
+<!-- BOTTOM OF FUNNEL -->
+<div style="padding:24px;background:rgba(34,197,94,.06);border:1px solid rgba(34,197,94,.12);border-bottom:0;border-top:0">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px">
+<div style="font-size:1rem;font-weight:800;color:var(--grn)">Bottom of Funnel</div>
+<div style="font-size:.7rem;padding:3px 10px;border-radius:4px;background:rgba(34,197,94,.1);color:var(--grn);font-weight:600">ACTIVATE</div>
+</div>
+<p style="font-size:.85rem;color:var(--g4);margin-bottom:12px">They book a demo. See the product. Evaluate against budget and stakeholder requirements. Multi month enterprise sales cycle.</p>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+<div style="padding:10px 12px;border-radius:6px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);font-size:.8rem">
+<strong style="color:var(--wh);font-size:.75rem">What we install:</strong>
+<ul style="margin:6px 0 0 14px;font-size:.78rem;color:var(--g4)">
+<li>Post demo nurture sequence</li>
+<li>Multi stakeholder content tracks</li>
+<li>Competitive comparison docs for champions</li>
+<li>Usage based expansion triggers</li>
+</ul>
+</div>
+<div style="padding:10px 12px;border-radius:6px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);font-size:.8rem">
+<strong style="color:var(--wh);font-size:.75rem">What's missing now:</strong>
+<ul style="margin:6px 0 0 14px;font-size:.78rem;color:var(--g4)">
+<li>No post demo nurture</li>
+<li>No multi stakeholder content</li>
+<li>Demo follow up is manual</li>
+<li>No automated expansion signals</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div style="text-align:center;padding:6px 0;background:var(--dk-s);font-size:.9rem;color:var(--g4)">&#8595;</div>
+
+<!-- SALE -->
+<div style="padding:24px;border-radius:0 0 10px 10px;background:rgba(160,240,255,.06);border:1px solid rgba(160,240,255,.12);border-top:0">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px">
+<div style="font-size:1rem;font-weight:800;color:var(--ne)">Sale</div>
+<div style="font-size:.7rem;padding:3px 10px;border-radius:4px;background:rgba(160,240,255,.1);color:var(--ne);font-weight:600">CONVERT</div>
+</div>
+<p style="font-size:.85rem;color:var(--g4);margin-bottom:12px">Enterprise deal closes. Customer onboards. Revenue. Then expansion begins.</p>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+<div style="padding:10px 12px;border-radius:6px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);font-size:.8rem">
+<strong style="color:var(--wh);font-size:.75rem">What we install:</strong>
+<ul style="margin:6px 0 0 14px;font-size:.78rem;color:var(--g4)">
+<li>Attribution: know which channel produced each deal</li>
+<li>Customer to case study pipeline</li>
+<li>Module adoption tracking for expansion</li>
+<li>Renewal and upsell triggers</li>
+</ul>
+</div>
+<div style="padding:10px 12px;border-radius:6px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);font-size:.8rem">
+<strong style="color:var(--wh);font-size:.75rem">What's missing now:</strong>
+<ul style="margin:6px 0 0 14px;font-size:.78rem;color:var(--g4)">
+<li>No marketing attribution</li>
+<li>No case study generation process</li>
+<li>Expansion is manual and relationship driven</li>
+<li>No systematic customer marketing</li>
+</ul>
+</div>
+</div>
+</div>
+
+</div>
+
+<p class="tagline rv" style="margin-top:16px">This is how every procurement buyer moves from "never heard of Omnea" to "enterprise customer."</p>
+</div></section>
+
+<!-- CARD 21: GROWTH LOOPS -->
+<section id="s21"><div class="w">
+<span class="label rv">How We Work</span>
+<h2 class="rv">The Growth Feedback Loop</h2>
+<p class="sub rv">Not a one time project. A system that gets smarter every week.</p>
+<div class="mf rv d1">
+<div class="ms"><div class="msn">1</div><h3>Test</h3><p>Launch experiment with hypothesis</p></div>
+<div class="ma">&#8594;</div>
+<div class="ms"><div class="msn">2</div><h3>Measure</h3><p>Track what happened vs expected</p></div>
+<div class="ma">&#8594;</div>
+<div class="ms"><div class="msn">3</div><h3>Learn</h3><p>What worked? What didn't? Why?</p></div>
+<div class="ma">&#8594;</div>
+<div class="ms"><div class="msn">4</div><h3>Scale</h3><p>3x budget on winners. Kill losers.</p></div>
+<div class="ma">&#8594;</div>
+<div class="ms"><div class="msn">5</div><h3>Document</h3><p>Playbook for your Growth Lead</p></div>
+</div>
+<div class="callout rv d2" style="margin-top:20px;background:rgba(160,240,255,.04);border-color:rgba(160,240,255,.2)">
+<p style="font-size:.85rem"><strong>Content to Pipeline to Content:</strong> Omnea publishes a case study about Spotify's procurement transformation. A Chief Financial Officer at a similar company reads it, recognises their own pain, and books a demo. That deal closes. That customer becomes the next case study. Each case study generates the next one. The content engine feeds itself.</p>
+</div>
+<div class="callout rv d3" style="margin-top:12px;background:rgba(77,101,255,.04);border-color:rgba(77,101,255,.2)">
+<p style="font-size:.85rem"><strong>Comparison Traffic to Credibility Loop:</strong> Every comparison page ("Omnea versus Coupa," "Omnea versus Zip") captures buyers who are already evaluating procurement tools. Those buyers are the highest intent leads in the category. When they choose Omnea over Coupa, that decision becomes a competitive proof point. That proof point makes the next comparison page more convincing.</p>
+</div>
+</div></section>
+
+<!-- CARD 22: FAQ -->
+<section class="alt" id="s22"><div class="w">
+<span class="label rv">Questions</span>
+<h2 class="rv">Frequently Asked Questions</h2>
+<div class="rv d1">
+<div class="fq"><div class="fq-q">Why is this free?<span class="ic">+</span></div><div class="fq-a">Because the package itself is the proof. If this diagnostic makes you think "this person understands Omnea's growth challenge," that is worth more than any sales call.</div></div>
+<div class="fq"><div class="fq-q">We are hiring someone to do this. Why would we bring in external help?<span class="ic">+</span></div><div class="fq-a">Your JD describes: growth engine, full funnel acquisition, paid channels, SEO, content, email, landing pages, experimentation, attribution, and US expansion. One person building from scratch. MDB installs the foundation in 90 days so your hire executes from day one instead of month four.</div></div>
+<div class="fq"><div class="fq-q">Our growth has been sales led and it works.<span class="ic">+</span></div><div class="fq-a">It worked to double digit millions. That is impressive. But Insight Partners and Khosla Ventures did not invest $50M in a sales led motion. They expect a growth engine. The US market cannot be won through founder networks. And Zip and Coupa are not going to slow down their marketing while Omnea catches up.</div></div>
+<div class="fq"><div class="fq-q">How is MDB different from a marketing agency?<span class="ic">+</span></div><div class="fq-a">Agencies produce campaigns. MDB installs infrastructure. The comparison pages, case study frameworks, keyword maps, attribution systems, and experimentation playbooks become permanent assets your team owns and operates. We leave. The infrastructure stays.</div></div>
+<div class="fq"><div class="fq-q">What if it conflicts with what our new hire wants to do?<span class="ic">+</span></div><div class="fq-a">We build the foundation. They choose the direction. The competitive content audit, the keyword map, the case study templates, the attribution framework: these are tools, not mandates. A great growth marketer wants to inherit a system, not start from zero.</div></div>
+<div class="fq"><div class="fq-q">How quickly will we see results?<span class="ic">+</span></div><div class="fq-a">Competitive audit and keyword map within 2 weeks. First comparison pages live within 30 days. First marketing sourced demo within 60 days. Documented playbook within 90 days.</div></div>
+</div>
+</div></section>
+
+<!-- CARD 23: ABOUT -->
+<section id="s23"><div class="w">
+<span class="label rv">About</span>
+<h2 class="rv">Jean Mundabi Fala</h2>
+<div class="ab rv d1">
+<div class="av">JM</div>
+<div class="ab-i">
+<h3>Jean Mundabi Fala</h3>
+<div class="role">CEO, MDB Growth Capital</div>
+<p style="font-size:.88rem">Based in the UK. Originally from DRC. Fluent in French and English. 3+ years leading performance marketing at BT/EE. 2+ years managing GBP 30 to 40M marketing budgets at Santander. Master's in Business Intelligence and Data Mining.</p>
+<a href="https://linkedin.com/in/jeanmundabi" target="_blank" class="ln-btn">Connect on LinkedIn</a>
+</div>
+</div>
+</div></section>
+
+<!-- CARD 24: OFFER + FINAL CTA -->
+<section class="dark" id="s24"><div class="w">
+<span class="label rv">The Offer</span>
+<h2 class="rv">Everything here is yours to keep.</h2>
+<p class="rv sub">Use the 90 day roadmap. Run the case study interviews. Build the comparison pages. Hand the keyword map to your new hire. No strings attached.</p>
+<p class="rv d1" style="margin-top:16px"><strong>If you want to go further:</strong></p>
+<ul class="ol rv d2" style="margin:10px 0 20px">
+<li>Full competitive content audit (Zip, Coupa, SAP Ariba, Precoro, Pivot)</li>
+<li>90 day growth marketing launch playbook executed and documented</li>
+<li>US market demand generation built from zero</li>
+<li>Attribution framework installed and reporting</li>
+<li>Case study framework executed with your enterprise customers</li>
+<li>10 experiments designed, run, and measured in the first 90 days</li>
+</ul>
+
+<h2 class="rv" style="margin-top:40px;text-align:center">2 Options To Get Started</h2>
+<div class="ctg rv d1">
+<div class="ctc"><h3>Just Reply</h3><p>Reply to the email this came with. Tell me which section resonated most.</p><a class="btn b-gh" href="mailto:">Reply to Email</a></div>
+<div class="ctc"><h3>Book A Call</h3><p>15 minutes. I walk you through the three changes. You keep everything either way.</p><a class="btn b-ne" href="https://cal.com/jean-m-8f4kbr/15min" target="_blank">Book 15 Minutes</a></div>
+</div>
+<p class="rv d2" style="margin-top:24px;font-size:1rem;line-height:1.6;text-align:center">Abhirukt, Omnea has $75M in funding, the number one UK startup award, and Spotify, MongoDB, and Albertsons as customers. The next phase is not more product. It is distribution. That is what this package maps.</p>
+<p class="rv d3" style="margin-top:12px;font-size:1.05rem;font-weight:700;text-align:center">Read it. Then decide.</p>
+
+<div class="callout rv" style="margin-top:24px;background:rgba(160,240,255,.06)">
+<p style="font-size:.88rem">The ROI calculator link already exists in Omnea's navigation menu. The page does not exist. That is the smallest version of Omnea's growth gap. The intent is there. The infrastructure is not.</p>
+<p style="font-size:.88rem;margin-bottom:0">This package is what we give away for free. Imagine what the full installation looks like.</p>
+</div>
+
+<p style="margin-top:16px;font-style:italic;font-size:.85rem;color:var(--g4);text-align:center">Jean Mundabi Fala<br>MDB Growth Capital</p>
+<footer>Strategy and GTM research by Jean Mundabi Fala</footer>
+</div></section>
+
+<script>
+// Reveal on scroll
+const o=new IntersectionObserver(e=>{e.forEach(i=>{if(i.isIntersecting){i.target.classList.add('on');o.unobserve(i.target)}})},{threshold:.08,rootMargin:'0px 0px -20px 0px'});
+document.querySelectorAll('.rv').forEach(el=>o.observe(el));
+
+// Side nav scroll tracking
+const secs=document.querySelectorAll('section[id]');
+const dots=document.querySelectorAll('.sn a');
+const no=new IntersectionObserver(e=>{e.forEach(i=>{if(i.isIntersecting){dots.forEach(d=>d.classList.remove('ac'));const d=document.querySelector(`.sn a[href="#${i.target.id}"]`);if(d)d.classList.add('ac')}})},{threshold:.2,rootMargin:'-5% 0px -60% 0px'});
+secs.forEach(s=>no.observe(s));
+
+// FAQ accordion
+document.querySelectorAll('.fq-q').forEach(q=>{q.addEventListener('click',()=>{const f=q.parentElement,w=f.classList.contains('open');document.querySelectorAll('.fq').forEach(x=>x.classList.remove('open'));if(!w)f.classList.add('open')})});
+
+// Video embed (auto-detect when URL is changed from placeholder)
+const ve=document.getElementById('videoEmbed');
+const vu='VIDEO_URL_GOES_HERE';
+if(vu&&vu!=='VIDEO_URL_GOES_HERE'){
+let eu='';
+if(vu.includes('loom.com')){eu=`https://www.loom.com/embed/${vu.split('/').pop().split('?')[0]}`}
+else if(vu.includes('youtube.com')||vu.includes('youtu.be')){const id=vu.includes('youtu.be')?vu.split('/').pop():new URLSearchParams(new URL(vu).search).get('v');eu=`https://www.youtube.com/embed/${id}`}
+else if(vu.includes('vimeo.com')){eu=`https://player.vimeo.com/video/${vu.split('/').pop().split('?')[0]}`}
+else if(vu.includes('tella.tv')){eu=vu.replace('/video/','/embed/')}
+if(eu){ve.innerHTML=`<iframe src="${eu}" style="width:100%;height:100%;border:none;border-radius:12px" allowfullscreen></iframe>`}
+}
+</script>
+</body>
+</html>
